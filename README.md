@@ -1,8 +1,42 @@
-# React + Vite
+ # Minesweeper Clone
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ ## Description
+ Clone of the classic Minesweeper game using React Hooks. Project development is divided in the next secions:
+ 
+ ### Create tile component
+ * [ ] Should create component
+ * [ ] Should have unclicked style
+ * [ ] Should have clicked style
 
-Currently, two official plugins are available:
+ ### Create tile logic
+ * [ ] Should be empty or have a mine
+ * [ ] Should display number of neighbour mines
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+ ### Create game basic logic
+ * [ ] Should be able to reset game
+ * [ ] Should be able to flag tiles
+ * [ ] Should open neighbour tiles if empty, after tile is clicked
+ * [ ] Should win game if all flags are used and put into every mine
+ 
+ ### Create difficulty levels
+ * [ ] Normal - 10x10 grid with 10 mines 
+ * [ ] Hard - 30x30 grid with 30 tiles
+ * [ ] Expert - 50x50 with 50 tiles
+
+ ## Installing
+  To clone the repo:
+ ```
+ cd project_folder
+ git clone https://github.com/freddychannarvaez/react-minesweeper.git
+ ```
+ To install dependencies inside project_folder:
+ ```
+ npm install
+ ```
+ To run the project
+ ```
+ npm run dev
+ ```
+
+ ## Authors
+ [Freddy Chan Narvaez](freddychannarvaez.com)
