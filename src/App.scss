@@ -1,0 +1,39 @@
+$tileSize: 50px;
+$gridSize: 150px;
+
+#root {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: $gridSize;
+}
+
+.tile {
+  width: $tileSize;
+  height: $tileSize;
+  cursor: pointer;
+  border: 1px solid black;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+}
+
+.clean {
+  background: linear-gradient(135deg, white, lightgray);
+  box-shadow: 5px 5px 10px black;
+}
+
+.clicked {
+  background-color: gray;
+  box-shadow: unset;
+}
