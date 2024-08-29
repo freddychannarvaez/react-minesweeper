@@ -9,7 +9,7 @@
  * [x] Should have clicked style
 
  ### Create tile logic
- * [ ] Should be empty or have a mine
+ * [x] Should be empty or have a mine
  * [ ] Should display number of neighbour mines
 
  ### Create game basic logic
