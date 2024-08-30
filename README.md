@@ -13,8 +13,13 @@
  * [ ] Should display number of neighbour mines
 
  ### Create game basic logic
- * [ ] Should be able to reset game
- * [ ] Should be able to flag tiles
+ * [x] Should lose game if click on mined tile
+ * [x] Should create controls to play and reset game
+ * [x] Should be able to reset game
+ * [x] Should create new mines array after reset game
+ * [ ] Should create timer to show time played
+ * [x] Should be able to flag tiles
+ * [x] Should create flags counter to show how many flags are used
  * [ ] Should open neighbour tiles if empty, after tile is clicked
  * [ ] Should win game if all flags are used and put into every mine
  

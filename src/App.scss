@@ -8,11 +8,48 @@ $gridSize: 400px;
   align-items: center;
 }
 
+.control {
+  width: $gridSize;
+  height: $tileSize;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  background-color: lightgray;
+  border: 1px solid black;
+  box-sizing: border-box;
+}
+
+.secondsPlayed {
+  font-size: 30px;
+  color: red;
+}
+
+.flagsLeft {
+  font-size: 30px;
+  color: red;
+}
+
+.button {
+  width: $tileSize - 10;
+  height: $tileSize - 10;
+  font-size: 24px;
+  box-shadow: 1px 1px 5px black;
+  
+  &:active {
+    box-shadow: unset;
+  }
+}
+
 .grid {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   width: $gridSize;
+}
+
+.gameOver {
+  pointer-events: none;
 }
 
 .tile {
