@@ -1,11 +1,14 @@
 import './App.scss'
 import { Tile } from './components/Tile.jsx'
+import { createMine } from './services/createMine.js';
 
-const grid = Array(9).fill(false)
-console.log("🚀 ~ grid:", grid)
-const mine = Math.floor(Math.random() * grid.length)
-grid[mine] = true
-console.log("🚀 ~ mine:", mine)
+const gridSide = 8;
+const totalMines = 8;
+
+const grid = Array(gridSide * gridSide).fill(false)
+const mines = createMine(gridSide, totalMines)
+grid.map((_, y) => { if (mines.includes(y)) grid[y] = true })
+console.log("🚀 ~ mines:", mines)
 
 function App() {
  
