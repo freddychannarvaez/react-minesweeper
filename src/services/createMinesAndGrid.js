@@ -1,5 +1,5 @@
 
-export function createMine(gridSize, minesNumber) {
+export function createMinesAndGrid(gridSize, minesNumber) {
   const total = Math.floor(gridSize * gridSize)
   const mines = []
   const grid = Array(total).fill(false)
@@ -7,7 +7,8 @@ export function createMine(gridSize, minesNumber) {
     mines.push(validateMine(total, mines))
   }
   mines.map((x) => grid[x] = true)
-  return mines
+  // return mines
+  return { newGrid: grid, newMines: mines }
 }
 
 const validateMine = (total, existingMines) => {

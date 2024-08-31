@@ -63,6 +63,8 @@ $gridSize: 400px;
   align-items: center;
   justify-content: center;
   font-size: 25px;
+  // FIXME:: Remove after stop showing tile index
+  position: relative;
 }
 
 .clean {
@@ -73,4 +75,40 @@ $gridSize: 400px;
 .clicked {
   background-color: gray;
   box-shadow: unset;
+}
+
+.number {
+  font-weight: bold;
+}
+
+.a1 {
+  color: blue;
+}
+
+.a2 {
+  color: green;
+}
+
+.a3 {
+  color: red;
+}
+
+.a4 {
+  color: darkblue;
+}
+
+.a5 {
+  color: darkred;
+}
+
+.a6 {
+  color: turquoise;
+}
+
+.a4 {
+  color: black;
+}
+
+.a5 {
+  color: gray;
 }

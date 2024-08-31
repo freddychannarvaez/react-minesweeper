@@ -2,20 +2,27 @@
 import { useEffect, useState } from 'react';
 import './App.scss'
 import { Tile } from './components/Tile.jsx'
-import { createMine } from './services/createMine.js';
+import { createMinesAndGrid } from './services/createMinesAndGrid.js';
+import { getNeighbourTiles } from './services/getNeighbourTiles.js';
 
-const gridSide = 8;
+const gridSize = 8;
 const totalMines = 8;
-let grid = []
-
 
 function App() {
   
   const [isGameOver, setIsGameOver] = useState(false)
-  const [isGameResetted, setIsGameResetted] = useState(true)
+  const [isGameResetted, setIsGameResetted] = useState(false)
   // const [secondsPlayed, setSecondsPlayed] = useState(0)
-  const [flagsLeft, setFlagsLeft] = useState(0)
+  // const [isGameStarted, setIsGameStarted] = useState(false)
+  const [validateLastTile, setValidateLastTile] = useState(false)
+  const [secondsPlayed, setSecondsPlayed] = useState(0)
+  const [flagsLeft, setFlagsLeft] = useState(totalMines)
   const [flagsUsed, setFlagsUsed] = useState([])
+  const [tilesToReveal, setTilesToReveal] = useState([])
+  let { newMines: firstMines, newGrid: firstGrid } = createMinesAndGrid(gridSize, totalMines)
+  const [mines, setMines] = useState(firstMines)
+  const [grid, setGrid] = useState(firstGrid)
+
 
   const handleEndGame = () => {
     console.log('Game over')
@@ -29,8 +36,14 @@ function App() {
     setIsGameResetted(true)
   }
 
+  const handleRevealTile = (index) => {
+    if (mines.includes(index)) return
+    const neighbourTiles = getNeighbourTiles(gridSize, index)
+    setTilesToReveal([...tilesToReveal,
+      ...neighbourTiles.filter((x) => !tilesToReveal.includes(x))])
+  }
+
   const onHandleFlagClick = (index, isFlagged) => {
-    console.log("🚀 ~ onHandleFlagClick ~ isFlagged:", isFlagged)
     if (isFlagged) {
       console.log('Flag removed')
       setFlagsUsed([...flagsUsed.filter(flag => flag !== index)])
@@ -40,6 +53,10 @@ function App() {
       setFlagsLeft(flagsLeft - 1)
       setFlagsUsed([...flagsUsed, index])
     }
+  }
+
+  const isGameWon = () => {
+    return mines.every((x) => flagsUsed.includes(x))
   }
 
   // const getTime = (startTime) => {
@@ -58,21 +75,38 @@ function App() {
 
   useEffect(() => {
     if (isGameResetted) {
+      const { newMines, newGrid } = createMinesAndGrid(gridSize, totalMines)
+      setMines(newMines)
+      setGrid(newGrid)
       setFlagsLeft(totalMines)
-      const mines = createMine(gridSide, totalMines)
-      grid = Array(gridSide * gridSide).fill(false)
-      grid.map((_, y) => { if (mines.includes(y)) grid[y] = true })
-      console.log("🚀 ~ mines:", mines)
+      setFlagsUsed([])
+      setTilesToReveal([])
       setIsGameResetted(false)
+      setSecondsPlayed(0)
     }
   }, [isGameResetted])
+
+  useEffect(() => {
+    if (flagsLeft == 0) {
+      setValidateLastTile(true)
+    }
+  }, [flagsLeft])
+
+  useEffect(() => {
+    if (validateLastTile == true) {
+      if (!isGameOver && isGameWon()) {
+        setIsGameOver(true)
+        alert('You won!!')
+      }
+    }
+  }, [validateLastTile])
  
   return (
     <>
       <h1>Minesweeper game</h1>
       <div className='control'>
         {
-          // <span className='secondsPlayed'>{secondsPlayed}</span>
+          <span className='secondsPlayed'>{secondsPlayed}</span>
         }
         {
           !isGameOver &&
@@ -91,8 +125,11 @@ function App() {
         {
           grid.map((_, index) => 
             <Tile key={index} index={index} hasMine={grid[index]}
+              gridSize={gridSize} minesArray={mines}
               endGame={handleEndGame} resetGame={isGameResetted}
-              flagTile={onHandleFlagClick}/>)
+              flagTile={onHandleFlagClick} revealTile={handleRevealTile}
+              tilesToReveal={tilesToReveal} revealMine={isGameOver}
+              availableFlags={flagsLeft}/>)
         }
         {
           isGameOver && <h3>Game over!!</h3>

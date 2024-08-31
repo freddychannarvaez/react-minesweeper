@@ -10,7 +10,7 @@
 
  ### Create tile logic
  * [x] Should be empty or have a mine
- * [ ] Should display number of neighbour mines
+ * [x] Should display number of neighbour mines
 
  ### Create game basic logic
  * [x] Should lose game if click on mined tile
@@ -20,8 +20,9 @@
  * [ ] Should create timer to show time played
  * [x] Should be able to flag tiles
  * [x] Should create flags counter to show how many flags are used
- * [ ] Should open neighbour tiles if empty, after tile is clicked
- * [ ] Should win game if all flags are used and put into every mine
+ * [x] Should only be able to use as many flags as mines
+ * [x] Should open neighbour tiles if empty, after tile is clicked
+ * [x] Should win game if all flags are used and put into every mine
  
  ### Create difficulty levels
  * [ ] Normal - 10x10 grid with 10 mines 

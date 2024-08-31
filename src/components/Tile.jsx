@@ -2,16 +2,33 @@
 import { useEffect, useState } from "react"
 import mineLogo from '../assets/mine.svg'
 import flagLogo from '../assets/flag.svg'
+import { calculateNeighbourMines } from "../services/calculateNeighbourMines"
 
 
-export function Tile({index, hasMine, endGame, resetGame, 
-  flagTile}) {
+export function Tile({index, hasMine, gridSize, minesArray,
+  endGame, resetGame, flagTile, revealTile, tilesToReveal,
+  revealMine, availableFlags}) {
 
   const [isClicked, setIsClicked] = useState(false)
   const [isFlagged, setIsFlagged] = useState(false)
+  const [neighbourMines, setNeighbourMines] = 
+    useState(calculateNeighbourMines(gridSize, index, minesArray))
+
+  const onClickTile = (index) => {
+    if (isClicked) return
+    if (isFlagged) {
+      setIsFlagged(false)
+      return
+    }
+    setIsClicked(!isClicked)
+    const neighbourMines = calculateNeighbourMines(gridSize, index, minesArray)
+    setNeighbourMines(neighbourMines)
+    if (neighbourMines == 0) revealTile(index)
+  }
 
   const onFlagTile = (e) => {
     e.preventDefault()
+    if (availableFlags == 0 || isClicked) return
     flagTile(index, isFlagged)
     setIsFlagged(!isFlagged)
   }
@@ -25,20 +42,40 @@ export function Tile({index, hasMine, endGame, resetGame,
   useEffect(() => {
     if (resetGame) {
       setIsClicked(false)
+      setIsFlagged(false)
     }
   }, [resetGame])
 
+  useEffect(() => {
+    if (tilesToReveal.includes(index) 
+          && !minesArray.includes(index) && !isClicked) { 
+      onClickTile(index)
+    }
+  }, [tilesToReveal])
+
+  useEffect(() => {
+    if (revealMine && hasMine) {
+      setIsClicked(true)
+    }
+  }, [revealMine])
+
   return (
     <div className={`tile ${isClicked ? 'clicked' : 'clean' }`}
-      onClick={() => setIsClicked(!isClicked)}
+      onClick={() => onClickTile(index)}
       onContextMenu={(e) => onFlagTile(e)}> 
+      {/* FIXME:: Remove after stop showing tile index */}
+      <span style={{fontSize: 10, position: 'absolute', top: 0, left: 5}}>
+        {index}</span>
       {
         hasMine && isClicked && <img className={`hasMine`} src={mineLogo}/>
       }
       {
         isFlagged && <img className={`flagged`} src={flagLogo}/>
       }
-      {!isClicked && !isFlagged && index}
+      {
+        isClicked && !hasMine && neighbourMines != 0 &&
+        <span className={`number a${neighbourMines}`}>{neighbourMines}</span>
+      }
     </div>
   )
 
