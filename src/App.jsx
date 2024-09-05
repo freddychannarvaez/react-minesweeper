@@ -25,13 +25,13 @@ function App() {
 
 
   const handleEndGame = () => {
-    console.log('Game over')
+    // console.log('Game over')
     setIsGameOver(true)
     setIsGameResetted(false)
   }
 
   const handleResetGame = () => {
-    console.log('Reset game')
+    // console.log('Reset game')
     setIsGameOver(false)
     setIsGameResetted(true)
   }
@@ -39,17 +39,18 @@ function App() {
   const handleRevealTile = (index) => {
     if (mines.includes(index)) return
     const neighbourTiles = getNeighbourTiles(gridSize, index)
-    setTilesToReveal([...tilesToReveal,
+    setTilesToReveal(
+      tilesToReveal => [...tilesToReveal,
       ...neighbourTiles.filter((x) => !tilesToReveal.includes(x))])
   }
 
   const onHandleFlagClick = (index, isFlagged) => {
     if (isFlagged) {
-      console.log('Flag removed')
+      // console.log('Flag removed')
       setFlagsUsed([...flagsUsed.filter(flag => flag !== index)])
       setFlagsLeft(flagsLeft + 1)
     } else {
-      console.log('Flag added')
+      // console.log('Flag added')
       setFlagsLeft(flagsLeft - 1)
       setFlagsUsed([...flagsUsed, index])
     }
@@ -83,6 +84,7 @@ function App() {
       setTilesToReveal([])
       setIsGameResetted(false)
       setSecondsPlayed(0)
+      setValidateLastTile(false)
     }
   }, [isGameResetted])
 

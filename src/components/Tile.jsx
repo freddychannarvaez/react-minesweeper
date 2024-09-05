@@ -11,16 +11,13 @@ export function Tile({index, hasMine, gridSize, minesArray,
 
   const [isClicked, setIsClicked] = useState(false)
   const [isFlagged, setIsFlagged] = useState(false)
-  const [neighbourMines, setNeighbourMines] = 
+  const [neighbourMines, setNeighbourMines] =
     useState(calculateNeighbourMines(gridSize, index, minesArray))
 
   const onClickTile = (index) => {
     if (isClicked) return
-    if (isFlagged) {
-      setIsFlagged(false)
-      return
-    }
-    setIsClicked(!isClicked)
+    if (isFlagged) return
+    setIsClicked(true)
     const neighbourMines = calculateNeighbourMines(gridSize, index, minesArray)
     setNeighbourMines(neighbourMines)
     if (neighbourMines == 0) revealTile(index)
@@ -43,6 +40,7 @@ export function Tile({index, hasMine, gridSize, minesArray,
     if (resetGame) {
       setIsClicked(false)
       setIsFlagged(false)
+      setNeighbourMines(calculateNeighbourMines(gridSize, index, minesArray))
     }
   }, [resetGame])
 
@@ -54,7 +52,7 @@ export function Tile({index, hasMine, gridSize, minesArray,
   }, [tilesToReveal])
 
   useEffect(() => {
-    if (revealMine && hasMine) {
+    if (revealMine && hasMine && !isFlagged) {
       setIsClicked(true)
     }
   }, [revealMine])
@@ -63,9 +61,6 @@ export function Tile({index, hasMine, gridSize, minesArray,
     <div className={`tile ${isClicked ? 'clicked' : 'clean' }`}
       onClick={() => onClickTile(index)}
       onContextMenu={(e) => onFlagTile(e)}> 
-      {/* FIXME:: Remove after stop showing tile index */}
-      <span style={{fontSize: 10, position: 'absolute', top: 0, left: 5}}>
-        {index}</span>
       {
         hasMine && isClicked && <img className={`hasMine`} src={mineLogo}/>
       }
