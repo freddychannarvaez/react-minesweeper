@@ -6,6 +6,7 @@ $gridSize: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: 'Roboto', sans-serif;
 }
 
 .control {
@@ -33,7 +34,7 @@ $gridSize: 400px;
 .button {
   width: $tileSize - 10;
   height: $tileSize - 10;
-  font-size: 24px;
+  font-size: 18px;
   box-shadow: 1px 1px 5px black;
   
   &:active {
@@ -46,69 +47,96 @@ $gridSize: 400px;
   flex-direction: row;
   flex-wrap: wrap;
   width: $gridSize;
+  
+  .gameOver {
+    pointer-events: none;
+  }
+  
+  .tile {
+    width: $tileSize;
+    height: $tileSize;
+    cursor: pointer;
+    border: 1px solid black;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    // FIXME:: Remove after stop showing tile index
+    // position: relative;
+  }
+  
+  .clean {
+    background: linear-gradient(135deg, white, lightgray);
+    box-shadow: 5px 5px 10px black;
+  }
+  
+  .clicked {
+    background-color: gray;
+    box-shadow: unset;
+  }
+  
+  .number {
+    font-weight: bold;
+  }
+  
+  .a1 {
+    color: blue;
+  }
+  
+  .a2 {
+    color: green;
+  }
+  
+  .a3 {
+    color: red;
+  }
+  
+  .a4 {
+    color: darkblue;
+  }
+  
+  .a5 {
+    color: darkred;
+  }
+  
+  .a6 {
+    color: turquoise;
+  }
+  
+  .a4 {
+    color: black;
+  }
+  
+  .a5 {
+    color: gray;
+  }
 }
 
-.gameOver {
-  pointer-events: none;
-}
+.project-description {
+  padding: 20px 5%;
+  a {
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+  }
 
-.tile {
-  width: $tileSize;
-  height: $tileSize;
-  cursor: pointer;
-  border: 1px solid black;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: 25px;
-  // FIXME:: Remove after stop showing tile index
-  position: relative;
-}
-
-.clean {
-  background: linear-gradient(135deg, white, lightgray);
-  box-shadow: 5px 5px 10px black;
-}
-
-.clicked {
-  background-color: gray;
-  box-shadow: unset;
-}
-
-.number {
-  font-weight: bold;
-}
-
-.a1 {
-  color: blue;
-}
-
-.a2 {
-  color: green;
-}
-
-.a3 {
-  color: red;
-}
-
-.a4 {
-  color: darkblue;
-}
-
-.a5 {
-  color: darkred;
-}
-
-.a6 {
-  color: turquoise;
-}
-
-.a4 {
-  color: black;
-}
-
-.a5 {
-  color: gray;
+  .social-info {
+    display: flex;
+    flex-direction: row;
+    column-gap: 30px;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0 0 0;
+  
+    .social-link {
+      img {
+        width: 30px;
+      }
+    }
+  }
+  .made-by {
+    text-align: right;
+  }
 }

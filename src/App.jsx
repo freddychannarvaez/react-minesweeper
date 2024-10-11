@@ -4,9 +4,33 @@ import './App.scss'
 import { Tile } from './components/Tile.jsx'
 import { createMinesAndGrid } from './services/createMinesAndGrid.js';
 import { getNeighbourTiles } from './services/getNeighbourTiles.js';
+import githubLogo from './assets/github.svg';
+import linkedinLogo from './assets/linkedin.svg';
+import gmailLogo from './assets/gmail.svg';
+
+const githubRepo = 'https://github.com/freddychannarvaez/react-minesweeper';
+const portfolio = 'https://freddychannarvaez.com';
 
 const gridSize = 8;
 const totalMines = 8;
+
+const socialMediaLinks = [
+  {
+    name: 'github',
+    link: 'https://github.com/freddychannarvaez',
+    logo: githubLogo
+  },
+  {
+    name: 'linkedin',
+    link: 'https://www.linkedin.com/in/freddy-chan-narvaez/',
+    logo: linkedinLogo
+  },
+  {
+    name: 'gmail',
+    link: 'mailto:freddychannarvaez@gmail.com',
+    logo: gmailLogo
+  }
+]
 
 function App() {
   
@@ -105,7 +129,7 @@ function App() {
  
   return (
     <>
-      <h1>Minesweeper game</h1>
+      <h1>Minesweeper clone</h1>
       <div className='control'>
         {
           <span className='secondsPlayed'>{secondsPlayed}</span>
@@ -137,7 +161,21 @@ function App() {
           isGameOver && <h3>Game over!!</h3>
         }
       </div>
-      
+
+      <div className='project-description'>
+        <h2>Project description</h2>
+        <p>This is a minesweeper clone made with ReactJS. It is a simple game where you have to reveal all the tiles that are hidden by mines. The game is over when all the tiles are revealed or when you run out of flags. You can find more information<a href={githubRepo}> here.</a></p>
+        <div className='social-info'>
+          {
+            socialMediaLinks.map((link, index) => 
+              <a className='social-link' key={index} href={link.link}>
+                <img src={link.logo}></img> 
+              </a>
+            )
+          }
+        </div>
+        <p className='made-by'>Made with ❤️ by <a href={portfolio}>Freddy Chan Narváez</a></p>
+      </div>
     </>
   )
 }
