@@ -17,12 +17,14 @@
  * [x] Should create controls to play and reset game
  * [x] Should be able to reset game
  * [x] Should create new mines array after reset game
- * [ ] Should create timer to show time played
+ * [x] Should create timer to show time played
  * [x] Should be able to flag tiles
  * [x] Should create flags counter to show how many flags are used
  * [x] Should only be able to use as many flags as mines
  * [x] Should open neighbour tiles if empty, after tile is clicked
  * [x] Should win game if all flags are used and put into every mine
+ * [ ] Should show congratulations message on winning game
+ * [x] Should end game if time is over
  
  ### Create difficulty levels
  * [ ] Normal - 10x10 grid with 10 mines 
@@ -45,4 +47,4 @@
  ```
 
  ## Authors
- [Freddy Chan Narvaez](freddychannarvaez.com)
+ [Freddy Chan Narvaez](https://freddychannarvaez.com)

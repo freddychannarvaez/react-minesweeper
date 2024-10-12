@@ -1,5 +1,8 @@
+$gridSize: 500px;
 $tileSize: 50px;
-$gridSize: 400px;
+
+$gridSizeMobile: 300px;
+$tileSizeMobile: 30px;
 
 #root {
   margin: 0 auto;
@@ -7,6 +10,7 @@ $gridSize: 400px;
   flex-direction: column;
   align-items: center;
   font-family: 'Roboto', sans-serif;
+  width: 100%;
 }
 
 .control {
@@ -19,19 +23,40 @@ $gridSize: 400px;
   background-color: lightgray;
   border: 1px solid black;
   box-sizing: border-box;
+
+  @media screen and (max-width: 600px) {
+    width: $gridSizeMobile;
+    height: $tileSizeMobile;
+  }
 }
 
-.secondsPlayed {
-  font-size: 30px;
-  color: red;
+.indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80px;
+  font-size: 24px;
+
+  @media screen and (max-width: 600px) {
+    font-size: 14px;
+  }
+
+  .secondsPlayed {
+    color: red;
+  }
+  .flagsLeft {
+    color: red;
+  }
+  .text {
+    font-size: 12px;
+    
+    @media screen and (max-width: 600px) {
+      font-size: 8px;
+    }
+  }
 }
 
-.flagsLeft {
-  font-size: 30px;
-  color: red;
-}
-
-.button {
+.emoji-button {
   width: $tileSize - 10;
   height: $tileSize - 10;
   font-size: 18px;
@@ -40,6 +65,13 @@ $gridSize: 400px;
   &:active {
     box-shadow: unset;
   }
+  
+  @media screen and (max-width: 600px) {
+    width: $tileSizeMobile;
+    height: $tileSizeMobile;
+    font-size: 14px;
+    padding: 0;
+  }
 }
 
 .grid {
@@ -47,6 +79,9 @@ $gridSize: 400px;
   flex-direction: row;
   flex-wrap: wrap;
   width: $gridSize;
+  @media screen and (max-width: 600px) {
+    width: $gridSizeMobile;
+  }
   
   .gameOver {
     pointer-events: none;
@@ -63,8 +98,11 @@ $gridSize: 400px;
     align-items: center;
     justify-content: center;
     font-size: 25px;
-    // FIXME:: Remove after stop showing tile index
-    // position: relative;
+    @media screen and (max-width: 600px) {
+      width: $tileSizeMobile;
+      height: $tileSizeMobile;
+      font-size: 14px;
+    }
   }
   
   .clean {
@@ -75,6 +113,13 @@ $gridSize: 400px;
   .clicked {
     background-color: gray;
     box-shadow: unset;
+  }
+
+  .hasMine, .flagged {
+    @media screen and (max-width: 600px) {
+      width: $tileSizeMobile - 10;
+      height: $tileSizeMobile - 10;
+    }
   }
   
   .number {
