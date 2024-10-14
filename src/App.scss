@@ -41,7 +41,7 @@ $tileSizeMobile: 30px;
     font-size: 14px;
   }
 
-  .secondsPlayed {
+  .secondsLeft {
     color: red;
   }
   .flagsLeft {
@@ -61,6 +61,7 @@ $tileSizeMobile: 30px;
   height: $tileSize - 10;
   font-size: 18px;
   box-shadow: 1px 1px 5px black;
+  cursor: pointer;
   
   &:active {
     box-shadow: unset;
@@ -113,6 +114,7 @@ $tileSizeMobile: 30px;
   .clicked {
     background-color: gray;
     box-shadow: unset;
+    cursor: default;
   }
 
   .hasMine, .flagged {

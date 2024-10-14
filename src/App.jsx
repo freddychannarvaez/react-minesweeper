@@ -14,7 +14,8 @@ const portfolio = 'https://freddychannarvaez.com';
 const gridSize = 10;
 const totalMines = 10;
 
-const timeLimit = 99;
+const timeAvailable = 99;
+let tiles = 100;
 
 const socialMediaLinks = [
   {
@@ -41,7 +42,7 @@ function App() {
   const [isGameStarted, setIsGameStarted] = useState(false)
   const [hasWonGame, setHasWonGame] = useState(false)
   const [validateLastTile, setValidateLastTile] = useState(false)
-  const [secondsPlayed, setSecondsPlayed] = useState(0)
+  const [secondsLeft, setSecondsLeft] = useState(timeAvailable)
   const [flagsLeft, setFlagsLeft] = useState(totalMines)
   const [flagsUsed, setFlagsUsed] = useState([])
   const [tilesToReveal, setTilesToReveal] = useState([])
@@ -66,6 +67,7 @@ function App() {
     setCurrentInterval(null)
     setIsGameStarted(false)
     setHasWonGame(false)
+    tiles = gridSize * gridSize
   }
 
   const handleRevealTile = (index) => {
@@ -86,6 +88,14 @@ function App() {
     }
   }
 
+  const handleClickTile = () => {
+    tiles = tiles - 1
+    if (tiles == totalMines) {
+      handleEndGame()
+      setHasWonGame(true)
+    }
+  }
+
   const isGameWon = () => {
     return mines.every((x) => flagsUsed.includes(x))
   }
@@ -93,9 +103,8 @@ function App() {
   const getTime = (startTime) => {
     const currentTime = new Date()
     const seconds = Math.floor((currentTime.getTime() - startTime.getTime()) / 1000)
-    setSecondsPlayed(seconds)
-    if (seconds >= timeLimit) {
-      setSecondsPlayed(0)
+    setSecondsLeft(secondsLeft - seconds)
+    if (seconds == timeAvailable) {
       handleEndGame()
     }
   }
@@ -115,7 +124,7 @@ function App() {
       setFlagsUsed([])
       setTilesToReveal([])
       setIsGameResetted(false)
-      setSecondsPlayed(0)
+      setSecondsLeft(0)
       setValidateLastTile(false)
     }
   }, [isGameResetted])
@@ -135,17 +144,17 @@ function App() {
     }
   }, [validateLastTile])
 
- // FIXME: Win also if you click on the last tile
- // FIXME: After win reveal all tiles
+  useEffect(() => {
+    if (hasWonGame && flagsLeft > 0) setFlagsLeft(0) 
+  }, [hasWonGame])
+
   return (
     <>
       <h1>Minesweeper clone</h1>
-      <p>Difficulty: Normal</p>
-      <p>Time: {timeLimit} seconds</p>
       <div className='control'>
-        { /* FIXME: Make countdown timer */
+        {
           <div className='indicator'>
-            <span className='secondsPlayed'>{secondsPlayed}</span>
+            <span className='secondsLeft'>{secondsLeft}</span>
             <span className='text'>seconds</span> 
           </div>
         }
@@ -163,10 +172,11 @@ function App() {
         {
           grid.map((_, index) => 
             <Tile key={index} index={index} gridSize={gridSize} minesArray={mines}
-                  tilesToReveal={tilesToReveal} revealMine={isGameOver} availableFlags={flagsLeft}
-                  hasMine={grid[index]} hasGameStarted={handleStartGame} hasGameEnded={isGameOver}
-                  onEndGame={handleEndGame} onResetGame={isGameResetted}
-                  onFlagTile={handleFlagClick} onRevealTile={handleRevealTile}/>)
+                  tilesToReveal={tilesToReveal} availableFlags={flagsLeft}
+                  hasMine={grid[index]} hasGameStarted={handleStartGame}
+                  hasGameEnded={isGameOver} hasWonGame={hasWonGame}
+                  onEndGame={handleEndGame} onResetGame={isGameResetted} 
+                  onFlagTile={handleFlagClick} onRevealTile={handleRevealTile} onClickTile={handleClickTile}/>) 
         }
         {
           isGameOver && <h3>{ hasWonGame ? 'You win' : 'Game is over'}!!</h3>

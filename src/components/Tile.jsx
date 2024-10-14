@@ -6,9 +6,9 @@ import flagLogo from '../assets/flag.svg'
 import { calculateNeighbourMines } from "../services/calculateNeighbourMines"
 
 
-export function Tile({index, gridSize, minesArray, tilesToReveal, revealMine, availableFlags,
-                      hasMine, hasGameStarted, hasGameEnded,
-                      onEndGame, onResetGame, onFlagTile, onRevealTile}) {
+export function Tile({index, gridSize, minesArray, tilesToReveal, availableFlags,
+                      hasMine, hasGameStarted, hasGameEnded, hasWonGame,
+                      onEndGame, onResetGame, onFlagTile, onRevealTile, onClickTile}) {
 
   const [isClicked, setIsClicked] = useState(false)
   const [isFlagged, setIsFlagged] = useState(false)
@@ -23,6 +23,7 @@ export function Tile({index, gridSize, minesArray, tilesToReveal, revealMine, av
     }
     if (isClicked || isFlagged || hasGameEnded) return
     setIsClicked(true)
+    onClickTile()
     const neighbourMines = calculateNeighbourMines(gridSize, index, minesArray)
     setNeighbourMines(neighbourMines)
     if (neighbourMines == 0) onRevealTile(index)
@@ -30,7 +31,7 @@ export function Tile({index, gridSize, minesArray, tilesToReveal, revealMine, av
 
   const handleFlagTile = (e) => {
     e.preventDefault()
-    if (availableFlags == 0 || isClicked) return
+    if (availableFlags == 0 || isClicked || hasGameEnded) return
     onFlagTile(index, isFlagged)
     setIsFlagged(!isFlagged)
   }
@@ -57,10 +58,9 @@ export function Tile({index, gridSize, minesArray, tilesToReveal, revealMine, av
   }, [tilesToReveal])
 
   useEffect(() => {
-    if (revealMine && hasMine && !isFlagged) {
-      setIsClicked(true)
-    }
-  }, [revealMine])
+    if (hasWonGame && hasMine) { setIsFlagged(true); return }
+    if (hasGameEnded && hasMine && !isFlagged) setIsClicked(true)
+  }, [hasGameEnded])
 
   return (
     <div className={`tile ${isClicked ? 'clicked' : 'clean' }`}

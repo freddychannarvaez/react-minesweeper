@@ -27,7 +27,7 @@
  * [x] Should end game if time is over
  
  ### Create difficulty levels
- * [ ] Normal - 10x10 grid with 10 mines 
+ * [x] Normal - 10x10 grid with 10 mines 
  * [ ] Hard - 30x30 grid with 30 tiles
  * [ ] Expert - 50x50 with 50 tiles
 
