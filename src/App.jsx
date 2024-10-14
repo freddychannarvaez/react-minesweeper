@@ -14,7 +14,7 @@ const portfolio = 'https://freddychannarvaez.com';
 const gridSize = 10;
 const totalMines = 10;
 
-const timeAvailable = 99;
+const availableTime = 99;
 let tiles = 100;
 
 const socialMediaLinks = [
@@ -42,7 +42,7 @@ function App() {
   const [isGameStarted, setIsGameStarted] = useState(false)
   const [hasWonGame, setHasWonGame] = useState(false)
   const [validateLastTile, setValidateLastTile] = useState(false)
-  const [secondsLeft, setSecondsLeft] = useState(timeAvailable)
+  const [secondsLeft, setSecondsLeft] = useState(availableTime)
   const [flagsLeft, setFlagsLeft] = useState(totalMines)
   const [flagsUsed, setFlagsUsed] = useState([])
   const [tilesToReveal, setTilesToReveal] = useState([])
@@ -104,7 +104,7 @@ function App() {
     const currentTime = new Date()
     const seconds = Math.floor((currentTime.getTime() - startTime.getTime()) / 1000)
     setSecondsLeft(secondsLeft - seconds)
-    if (seconds == timeAvailable) {
+    if (seconds == availableTime) {
       handleEndGame()
     }
   }
@@ -124,7 +124,7 @@ function App() {
       setFlagsUsed([])
       setTilesToReveal([])
       setIsGameResetted(false)
-      setSecondsLeft(0)
+      setSecondsLeft(availableTime)
       setValidateLastTile(false)
     }
   }, [isGameResetted])
